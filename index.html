@@ -60,7 +60,7 @@
   h2 { font-size: clamp(1.6rem, 4.5vw, 2.1rem); margin-bottom: 28px; }
 
   /* Cards */
-  .cards { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); }
+  .cards { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
   .card {
     background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
     overflow: hidden; display: flex; flex-direction: column;
@@ -75,6 +75,23 @@
   .preview.barber { background: linear-gradient(135deg, #2b2f36, #14161a); }
   .preview.barber .bar { background: rgba(224,164,58,.85); }
   .preview.nails { background: linear-gradient(135deg, #efe7fb, #d8c8f3); }
+  .preview.psy { background: linear-gradient(135deg, #e5eef6, #c3d6e6); }
+  .preview.tutor { background: linear-gradient(135deg, #fdf0d8, #f4d9a6); }
+  .preview.school { background: linear-gradient(135deg, #e4ecfb, #c3d3f4); }
+  .preview.law { background: linear-gradient(135deg, #ece8dc, #cfc8b3); }
+  .preview.repair { background: linear-gradient(135deg, #f1e4da, #e3bfa7); }
+  .preview.furn { background: linear-gradient(135deg, #efe2cf, #d6b78f); }
+  .preview.auto { background: linear-gradient(135deg, #e7eaf0, #f0c6c6); }
+  .preview.wed { background: linear-gradient(135deg, #f7efe0, #e8d3ac); }
+  .lead2 { color: var(--muted); font-size: 1rem; max-width: 60ch; margin: -14px 0 28px; }
+  /* FAQ */
+  .faq details { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 0 22px; margin-bottom: 12px; }
+  .faq summary { cursor: pointer; font-weight: 700; padding: 18px 0; list-style: none; display: flex; justify-content: space-between; gap: 14px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font-size: 1.5rem; line-height: 1; color: var(--accent); }
+  .faq details[open] summary::after { content: "\2212"; }
+  .faq summary:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
+  .faq details p { margin: 0 0 18px; color: var(--muted); }
   h3.group { font-family: "Lora", Georgia, serif; font-size: 1.25rem; margin: 36px 0 16px; color: var(--muted); font-weight: 600; }
   h3.group:first-of-type { margin-top: 0; }
   .preview .bar { height: 10px; border-radius: 6px; background: rgba(255,255,255,.75); }
@@ -101,6 +118,7 @@
   .btn:hover { background: var(--accent-dark); }
   .btn:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
   .card .btn { align-self: flex-start; }
+  .card .btn { padding: 12px 16px; white-space: nowrap; }
 
   /* Audience tags */
   .tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
@@ -145,11 +163,17 @@
     .tags { gap: 10px; }
     .tags li { padding: 8px 15px; font-size: .95rem; }
   }
+
+  .lang { position: absolute; top: 16px; right: 16px; display: flex; gap: 0; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--surface); }
+  .lang button { font: inherit; font-size: .85rem; font-weight: 700; padding: 6px 14px; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
+  .lang button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+  .hero { position: relative; }
 </style>
 </head>
 <body>
 
 <header class="hero">
+  <div class="lang" id="langsw" role="group" aria-label="Язык / Тіл"><button type="button" data-l="ru" aria-pressed="true">РУС</button><button type="button" data-l="kk" aria-pressed="false">ҚАЗ</button></div>
   <div class="wrap">
     <div class="mark" aria-hidden="true">
       <svg width="26" height="26" viewBox="0 0 64 64"><path d="M27 10h10v17h17v10H37v17H27V37H10V27h17z" fill="#fdf8f2"/></svg>
@@ -163,6 +187,7 @@
   <section id="works">
     <div class="wrap">
       <h2>Мои работы</h2>
+      <p class="lead2">Все примеры демонстрационные: названия, цены и контакты вымышлены. Для вашего бизнеса сайт делается с вашими данными.</p>
       <h3 class="group">Клиники и врачи</h3>
       <div class="cards">
         <article class="card">
@@ -198,9 +223,22 @@
           <div class="card-body">
             <span class="badge">Демонстрационный проект</span>
             <h3>Невролог Мадина К.</h3>
-            <p>Частный врач-специалист</p>
+            <p>Частный врач, сайт на двух языках</p>
             <div class="spacer"></div>
             <a class="btn" href="https://sake19734-boop.github.io/portfolio/nevrolog.html" target="_blank" rel="noopener noreferrer">Открыть сайт</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="preview psy" aria-hidden="true">
+            <div class="lines"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+          </div>
+          <div class="card-body">
+            <span class="badge">Демонстрационный проект</span>
+            <h3>Психолог Динара С.</h3>
+            <p>Частный психолог</p>
+            <div class="spacer"></div>
+            <a class="btn" href="https://sake19734-boop.github.io/portfolio/psycholog.html" target="_blank" rel="noopener noreferrer">Открыть сайт</a>
           </div>
         </article>
       </div>
@@ -258,8 +296,88 @@
           </div>
         </article>
       </div>
-      <h3 class="group">Бизнес и каталоги</h3>
+      <h3 class="group">Образование и консультации</h3>
       <div class="cards">
+        <article class="card">
+          <div class="preview tutor" aria-hidden="true">
+            <div class="lines"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+          </div>
+          <div class="card-body">
+            <span class="badge">Демонстрационный проект</span>
+            <h3>Репетитор Ержан А.</h3>
+            <p>Математика, 5–11 классы</p>
+            <div class="spacer"></div>
+            <a class="btn" href="https://sake19734-boop.github.io/portfolio/tutor.html" target="_blank" rel="noopener noreferrer">Открыть сайт</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="preview school" aria-hidden="true">
+            <div class="lines"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+          </div>
+          <div class="card-body">
+            <span class="badge">Демонстрационный проект</span>
+            <h3>Ступени</h3>
+            <p>Учебный центр</p>
+            <div class="spacer"></div>
+            <a class="btn" href="https://sake19734-boop.github.io/portfolio/school.html" target="_blank" rel="noopener noreferrer">Открыть сайт</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="preview law" aria-hidden="true">
+            <div class="lines"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+          </div>
+          <div class="card-body">
+            <span class="badge">Демонстрационный проект</span>
+            <h3>Основа</h3>
+            <p>Юристы и бухгалтеры</p>
+            <div class="spacer"></div>
+            <a class="btn" href="https://sake19734-boop.github.io/portfolio/law.html" target="_blank" rel="noopener noreferrer">Открыть сайт</a>
+          </div>
+        </article>
+      </div>
+      <h3 class="group">Строительство, производство и сервис</h3>
+      <div class="cards">
+        <article class="card">
+          <div class="preview repair" aria-hidden="true">
+            <div class="lines"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+          </div>
+          <div class="card-body">
+            <span class="badge">Демонстрационный проект</span>
+            <h3>РемСтрой</h3>
+            <p>Ремонт с калькулятором стоимости</p>
+            <div class="spacer"></div>
+            <a class="btn" href="https://sake19734-boop.github.io/portfolio/repair.html" target="_blank" rel="noopener noreferrer">Открыть сайт</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="preview furn" aria-hidden="true">
+            <div class="lines"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+          </div>
+          <div class="card-body">
+            <span class="badge">Демонстрационный проект</span>
+            <h3>Кедр</h3>
+            <p>Мебель на заказ с калькулятором</p>
+            <div class="spacer"></div>
+            <a class="btn" href="https://sake19734-boop.github.io/portfolio/furniture.html" target="_blank" rel="noopener noreferrer">Открыть сайт</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="preview auto" aria-hidden="true">
+            <div class="lines"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+          </div>
+          <div class="card-body">
+            <span class="badge">Демонстрационный проект</span>
+            <h3>Передача</h3>
+            <p>Автосервис</p>
+            <div class="spacer"></div>
+            <a class="btn" href="https://sake19734-boop.github.io/portfolio/autoservice.html" target="_blank" rel="noopener noreferrer">Открыть сайт</a>
+          </div>
+        </article>
+
         <article class="card">
           <div class="preview stone" aria-hidden="true">
             <div class="lines"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
@@ -267,9 +385,24 @@
           <div class="card-body">
             <span class="badge">Демонстрационный проект</span>
             <h3>Каменный двор</h3>
-            <p>Каталог натурального камня с калькулятором</p>
+            <p>Каталог камня с калькулятором</p>
             <div class="spacer"></div>
             <a class="btn" href="https://sake19734-boop.github.io/stone-demo/" target="_blank" rel="noopener noreferrer">Открыть сайт</a>
+          </div>
+        </article>
+      </div>
+      <h3 class="group">События</h3>
+      <div class="cards">
+        <article class="card">
+          <div class="preview wed" aria-hidden="true">
+            <div class="lines"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+          </div>
+          <div class="card-body">
+            <span class="badge">Демонстрационный проект</span>
+            <h3>Мерей</h3>
+            <p>Организация свадеб</p>
+            <div class="spacer"></div>
+            <a class="btn" href="https://sake19734-boop.github.io/portfolio/wedding.html" target="_blank" rel="noopener noreferrer">Открыть сайт</a>
           </div>
         </article>
       </div>
@@ -306,10 +439,24 @@
       <ul class="list">
         <li>Структура страницы</li>
         <li>Адаптивная вёрстка под телефон</li>
+        <li>Язык сайта<small>Русский или қазақ тілінде — по цене пакета, два языка +10 000 ₸</small></li>
         <li>Форма записи</li>
         <li>Политика конфиденциальности<small>Образец, для проверки юристом</small></li>
         <li>Публикация в интернете</li>
       </ul>
+    </div>
+  </section>
+
+  <section id="faq" class="faq">
+    <div class="wrap">
+      <h2>Частые вопросы</h2>
+      <details><summary>Сколько стоит сайт?</summary><p>Простая визитка от 35 000 ₸, сайт с записью или каталогом от 60 000 ₸, сайт «под ключ» от 90 000 ₸. Точную цену называю после обсуждения задачи и всегда до начала работы. Адрес сайта (домен) оплачивается отдельно и оформляется на вас.</p></details>
+      <details><summary>Зачем мне сайт, если у меня есть Instagram?</summary><p>Instagram — это витрина, но не вся. Сайт открывается без регистрации и может находиться через поиск, в нём в одном месте собраны цены, адреса и запись, а принадлежит он вам: его не изменят правила соцсети. Лучше всего они работают вместе: в профиле Instagram стоит ссылка на сайт.</p></details>
+      <details><summary>А если мне не понравится?</summary><p>Сначала мы согласуем структуру страницы, и вы видите, что на ней будет. Потом вы получаете ссылку на рабочую версию, две правки входят в цену. Оплата только после того, как вы приняли готовый сайт, без предоплаты.</p></details>
+      <details><summary>На каком языке будет сайт?</summary><p>На том, который нужен вашим клиентам: на русском, на казахском или сразу на двух языках с переключателем. Тексты на казахском я готовлю сам, перед публикацией вы их проверяете. Сайт только на одном языке (русском или казахском) стоит по обычной цене, второй язык добавляет 10 000 ₸ к выбранному пакету.</p></details>
+      <details><summary>Сколько времени занимает работа?</summary><p>Обычно от 3 до 10 дней в зависимости от объёма и от того, как быстро вы пришлёте материалы: тексты, цены, фото, контакты.</p></details>
+      <details><summary>Кому принадлежит сайт?</summary><p>Вам. Домен оформляется на вас, а после оплаты я передаю доступы и исходные файлы.</p></details>
+      <details><summary>Нужно ли запускать рекламу?</summary><p>Не обязательно. Сайт не приводит клиентов сам по себе, но даёт место, куда можно вести людей: ссылка в Instagram и 2ГИС, на визитках, в WhatsApp. Определённого числа клиентов я не обещаю.</p></details>
     </div>
   </section>
 
@@ -330,5 +477,26 @@
   <div class="wrap">Сайты для бизнеса в Шымкенте</div>
 </footer>
 
+<script>
+(function(){
+  var T={"Сайты для бизнеса в Шымкенте": "Шымкенттегі бизнеске арналған сайттар", "Делаю понятные сайты для клиник, мастеров и компаний: с каталогом, калькулятором и связью через WhatsApp.": "Клиникаларға, шеберлерге және компанияларға түсінікті сайттар жасаймын: каталогпен, калькулятормен және WhatsApp арқылы байланыспен.", "Мои работы": "Менің жұмыстарым", "Все примеры демонстрационные: названия, цены и контакты вымышлены. Для вашего бизнеса сайт делается с вашими данными.": "Барлық мысалдар демонстрациялық: атаулары, бағалары мен байланыстары ойдан шығарылған. Сіздің бизнесіңізге сайт өз деректеріңізбен жасалады.", "Клиники и врачи": "Клиникалар мен дәрігерлер", "Красота и уход": "Сұлулық және күтім", "Образование и консультации": "Білім беру және кеңес", "Строительство, производство и сервис": "Құрылыс, өндіріс және сервис", "События": "Іс-шаралар", "Демонстрационный проект": "Демонстрациялық жоба", "Открыть сайт": "Сайтты ашу", "Частная клиника": "Жеке клиника", "Семейная стоматология": "Отбасылық стоматология", "Невролог Мадина К.": "Невролог Мәдина К.", "Частный врач, сайт на двух языках": "Жеке дәрігер-маман", "Психолог Динара С.": "Психолог Динара С.", "Частный психолог": "Жеке психолог", "Кабинет косметологии": "Косметология кабинеті", "Баланс": "Баланс", "Студия массажа": "Массаж студиясы", "Сталь": "Сталь", "Мужской барбершоп": "Ерлер барбершопы", "Мастер маникюра и педикюра": "Маникюр және педикюр шебері", "Репетитор Ержан А.": "Репетитор Ержан А.", "Математика, 5–11 классы": "Математика, 5–11 сыныптар", "Учебный центр": "Оқу орталығы", "Юристы и бухгалтеры": "Заңгерлер мен бухгалтерлер", "Ремонт с калькулятором стоимости": "Құнын есептейтін калькуляторлы жөндеу", "Мебель на заказ с калькулятором": "Калькуляторлы тапсырыспен жасалатын жиһаз", "Автосервис": "Автосервис", "Каменный двор": "Тас аула", "Каталог камня с калькулятором": "Калькуляторлы тас каталогы", "Организация свадеб": "Той ұйымдастыру", "Для кого я делаю сайты": "Сайтты кімдерге жасаймын", "Частные клиники и врачи": "Жеке клиникалар мен дәрігерлер", "Стоматологии": "Стоматологиялар", "Косметологи": "Косметологтар", "Парикмахерские и барбершопы": "Шаштараздар мен барбершоптар", "Мастера маникюра и бровей": "Маникюр және қас шеберлері", "Массажисты": "Массажистер", "Психологи и коучи": "Психологтар мен коучтар", "Репетиторы": "Репетиторлар", "Магазины и компании с каталогом": "Каталогы бар дүкендер мен компаниялар", "Автосервисы и автомойки": "Автосервистер мен автожуу орындары", "Строительные и ремонтные бригады": "Құрылыс және жөндеу бригадалары", "Мебельные цеха и ателье": "Жиһаз цехтары мен ательелер", "Учебные центры и кружки": "Оқу орталықтары мен үйірмелер", "Свадебные услуги": "Той қызметтері", "Примеры для других ниш сделаю под ваш бизнес по запросу": "Басқа салаларға арналған мысалдарды сұрауыңыз бойынша сіздің бизнесіңізге жасаймын", "Что входит в работу": "Жұмысқа не кіреді", "Структура страницы": "Бет құрылымы", "Адаптивная вёрстка под телефон": "Телефонға бейімделген верстка", "Язык сайта": "Сайт тілі", "Русский или қазақ тілінде — по цене пакета, два языка +10 000 ₸": "Орысша немесе қазақша — пакет бағасымен, екі тіл +10 000 ₸", "Форма записи": "Жазылу формасы", "Политика конфиденциальности": "Құпиялылық саясаты", "Образец, для проверки юристом": "Үлгі, заңгерге тексертуге арналған", "Публикация в интернете": "Интернетте жариялау", "Частые вопросы": "Жиі қойылатын сұрақтар", "Сколько стоит сайт?": "Сайт қанша тұрады?", "Простая визитка от 35 000 ₸, сайт с записью или каталогом от 60 000 ₸, сайт «под ключ» от 90 000 ₸. Точную цену называю после обсуждения задачи и всегда до начала работы. Адрес сайта (домен) оплачивается отдельно и оформляется на вас.": "Қарапайым визитка 35 000 ₸-ден, жазылуы немесе каталогы бар сайт 60 000 ₸-ден, «кілтін тапсыру» сайты 90 000 ₸-ден. Нақты бағаны міндетті талқылағаннан кейін, жұмыс басталғанға дейін айтамын. Сайт мекенжайы (домен) бөлек төленеді және сізге тіркеледі.", "Зачем мне сайт, если у меня есть Instagram?": "Instagram бар болса, маған сайт не үшін керек?", "Instagram — это витрина, но не вся. Сайт открывается без регистрации и может находиться через поиск, в нём в одном месте собраны цены, адреса и запись, а принадлежит он вам: его не изменят правила соцсети. Лучше всего они работают вместе: в профиле Instagram стоит ссылка на сайт.": "Instagram — бұл витрина, бірақ толық емес. Сайт тіркелусіз ашылады және іздеу арқылы табылуы мүмкін, онда бағалар, мекенжайлар және жазылу бір жерде жиналған, әрі ол сізге тиесілі: әлеуметтік желі ережелері оны өзгертпейді. Екеуі бірге жақсы жұмыс істейді: Instagram профилінде сайтқа сілтеме тұрады.", "А если мне не понравится?": "Ұнамай қалса ше?", "Сначала мы согласуем структуру страницы, и вы видите, что на ней будет. Потом вы получаете ссылку на рабочую версию, две правки входят в цену. Оплата только после того, как вы приняли готовый сайт, без предоплаты.": "Алдымен бет құрылымын келісеміз, сіз онда не болатынын көресіз. Сосын жұмыс нұсқасына сілтеме аласыз, екі түзету баға ішіне кіреді. Төлем дайын сайтты қабылдағаннан кейін ғана, алдын ала төлемсіз.", "На каком языке будет сайт?": "Сайт қай тілде болады?", "На том, который нужен вашим клиентам: на русском, на казахском или сразу на двух языках с переключателем. Тексты на казахском я готовлю сам, перед публикацией вы их проверяете. Сайт только на одном языке (русском или казахском) стоит по обычной цене, второй язык добавляет 10 000 ₸ к выбранному пакету.": "Клиенттеріңізге керек тілде: орысша, қазақша немесе ауыстырып-қосқышы бар екі тілде бірден. Қазақша мәтіндерді өзім дайындаймын, жарияламас бұрын сіз тексересіз. Бір тілде (орысша немесе қазақша) сайт әдеттегі бағамен, екінші тіл таңдалған пакетке 10 000 ₸ қосады.", "Сколько времени занимает работа?": "Жұмыс қанша уақытқа созылады?", "Обычно от 3 до 10 дней в зависимости от объёма и от того, как быстро вы пришлёте материалы: тексты, цены, фото, контакты.": "Көлеміне және материалдарды (мәтін, баға, фото, байланыс) қаншалықты тез жіберуіңізге байланысты, әдетте 3-тен 10 күнге дейін.", "Кому принадлежит сайт?": "Сайт кімге тиесілі?", "Вам. Домен оформляется на вас, а после оплаты я передаю доступы и исходные файлы.": "Сізге. Домен сізге тіркеледі, ал төлемнен кейін мен қолжетімділіктер мен бастапқы файлдарды беремін.", "Нужно ли запускать рекламу?": "Жарнама іске қосу керек пе?", "Не обязательно. Сайт не приводит клиентов сам по себе, но даёт место, куда можно вести людей: ссылка в Instagram и 2ГИС, на визитках, в WhatsApp. Определённого числа клиентов я не обещаю.": "Міндетті емес. Сайттың өзі клиент әкелмейді, бірақ адамдарды жіберетін орын береді: Instagram мен 2ГИС-тегі сілтеме, визиткалар, WhatsApp. Клиенттердің белгілі бір санына кепілдік бермеймін.", "Связаться": "Байланысу", "Напишите, чтобы обсудить сайт для вашего бизнеса.": "Бизнесіңізге арналған сайтты талқылау үшін жазыңыз.", "Написать в WhatsApp": "WhatsApp-қа жазу"};
+  var nodes=[];
+  var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+  while(w.nextNode()){var n=w.currentNode,t=n.nodeValue.trim();
+    if(t&&Object.prototype.hasOwnProperty.call(T,t)&&!n.parentNode.closest('#langsw')){nodes.push({n:n,ru:n.nodeValue,kk:n.nodeValue.replace(t,T[t])});}}
+  var title=document.title,titleKk=T[title]||title;
+  function set(l){
+    nodes.forEach(function(o){o.n.nodeValue=o[l==='kk'?'kk':'ru'];});
+    document.documentElement.lang=l==='kk'?'kk':'ru';
+    document.title=l==='kk'?titleKk:title;
+    document.querySelectorAll('#langsw button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l===l?'true':'false');});
+    try{localStorage.setItem('lang',l);}catch(e){}
+  }
+  document.querySelectorAll('#langsw button').forEach(function(b){b.addEventListener('click',function(){set(b.dataset.l);});});
+  var l='ru';
+  try{var q=new URLSearchParams(location.search).get('lang');l=q||localStorage.getItem('lang')||(/^kk/i.test(navigator.language)?'kk':'ru');}catch(e){}
+  if(l==='kk')set('kk');
+})();
+</script>
 </body>
 </html>

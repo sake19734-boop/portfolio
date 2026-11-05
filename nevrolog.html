@@ -38,7 +38,7 @@ img,svg{max-width:100%}
 a{color:inherit}
 .wrap{width:100%;max-width:1060px;margin:0 auto;padding:0 20px}
 h1,h2,h3{font-family:var(--fh);font-weight:var(--fhw);line-height:1.15;margin:0;letter-spacing:var(--ls,0)}
-.demo{background:var(--text);color:var(--bg);font-size:.8rem;line-height:1.4;padding:8px 16px;text-align:center}
+.demo{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--text);color:var(--bg);font-size:.8rem;line-height:1.4;padding:8px 16px;text-align:center}
 header.top{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px}
 .logo{font-family:var(--fh);font-weight:var(--fhw);font-size:1.25rem;text-decoration:none;white-space:nowrap}
@@ -92,6 +92,9 @@ section.blk>.wrap>h2{font-size:clamp(1.6rem,4.6vw,2.3rem);margin-bottom:26px;tex
 @media(min-width:700px){.book{grid-template-columns:1fr 1fr;padding:32px}.book .full{grid-column:1/-1}}
 label{display:grid;gap:6px;font-weight:700;font-size:.92rem}
 input,select,textarea{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line2);border-radius:var(--r);min-height:48px;padding:10px 14px;width:100%}
+.res{display:grid;gap:10px;align-items:center;background:var(--bg);border:1px dashed var(--line2);border-radius:var(--r);padding:16px}
+.res .sum{font-family:var(--fh);font-size:1.5rem;font-weight:var(--fhw)}
+.res small{color:var(--muted)}
 .err{color:var(--err);font-size:.88rem;min-height:1.2em;margin:0}
 details{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:0 20px;margin-bottom:10px}
 summary{cursor:pointer;font-weight:700;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
@@ -105,10 +108,11 @@ details p{margin:0 0 16px;color:var(--muted)}
 footer{padding:28px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.86rem}
 footer p{margin:0 0 8px}
 
+.lsw{display:flex;flex:none;border:1px solid currentColor;border-radius:999px;overflow:hidden}.lsw button{font:inherit;font-size:12px;font-weight:700;padding:3px 10px;border:0;background:transparent;color:inherit;cursor:pointer;opacity:.7}.lsw button[aria-pressed="true"]{background:#fff;color:#222;opacity:1}
 </style>
 </head>
 <body>
-<div class="demo">Демонстрационный сайт. Название, адрес, телефон, цены и имена вымышлены, любое совпадение случайно.</div>
+<div class="demo"><span>Демонстрационный сайт. Название, адрес, телефон, цены и имена вымышлены, любое совпадение случайно.</span><div class="lsw" id="langsw" role="group" aria-label="Язык / Тіл"><button type="button" data-l="ru" aria-pressed="true">РУС</button><button type="button" data-l="kk" aria-pressed="false">ҚАЗ</button></div></div>
 <header class="top"><div class="wrap bar">
   <a class="logo" href="#top">Невролог Мадина К.<small>Частный приём · Шымкент</small></a>
   <nav class="menu" aria-label="Разделы"><a href="#services">Приём</a><a href="#about">О враче</a><a href="#how">Как проходит</a><a href="#faq">Вопросы</a><a href="#contacts">Контакты</a></nav>
@@ -130,6 +134,7 @@ footer p{margin:0 0 8px}
   <h2>Приём и консультации</h2><p class="sub">Стоимость указана ориентировочно, точную назовёт администратор при записи.</p>
   <div class="grid"><article class="card"><h3>Первичная консультация</h3><p>Сбор жалоб и истории, осмотр, план обследования и рекомендаций.</p><div class="meta"><span>60 мин</span><span>от 12 000 ₸</span></div></article><article class="card"><h3>Повторный приём</h3><p>Оценка динамики, коррекция плана и ответы на вопросы.</p><div class="meta"><span>30 мин</span><span>от 8 000 ₸</span></div></article><article class="card"><h3>Разбор результатов обследований</h3><p>МРТ, анализы, заключения других врачей: разберём и объясним.</p><div class="meta"><span>30 мин</span><span>от 8 000 ₸</span></div></article><article class="card"><h3>Онлайн-консультация</h3><p>Видеосвязь для тех, кто не может приехать. Нужны фото документов.</p><div class="meta"><span>40 мин</span><span>от 9 000 ₸</span></div></article></div>
 </div></section>
+
 
 <section class="blk" id="about"><div class="wrap">
   <h2>О враче</h2>  <div class="about">
@@ -178,11 +183,48 @@ var f=document.getElementById('f');
 f.addEventListener('submit',function(e){
   e.preventDefault();
   var n=document.getElementById('fn').value.trim(),s=document.getElementById('fs').value,d=document.getElementById('fd').value.trim(),p=document.getElementById('fp').value.trim(),er=document.getElementById('e1');
-  if(!n){er.textContent='Введите имя';document.getElementById('fn').focus();return}
+  if(!n){er.textContent=window.__kk?'Атыңызды енгізіңіз':'Введите имя';document.getElementById('fn').focus();return}
   er.textContent='';
-  var t='Здравствуйте! Меня зовут '+n+'. Хочу записаться: '+s+'.'+(d?' Удобное время: '+d+'.':'')+(p?' Мой телефон: '+p+'.':'');
+  var t=window.__kk?('Сәлеметсіз бе! Менің атым '+n+'. Жазылғым келеді: '+s+'.'+(d?' Ыңғайлы уақыт: '+d+'.':'')+(p?' Менің телефоным: '+p+'.':'')):('Здравствуйте! Меня зовут '+n+'. Хочу записаться: '+s+'.'+(d?' Удобное время: '+d+'.':'')+(p?' Мой телефон: '+p+'.':''));
   window.open(wa(t),'_blank','noopener');
 });
+var ct=document.getElementById('ct');
+if(ct){
+  var cq=document.getElementById('cq'),cr=document.getElementById('cr'),ce=document.getElementById('ce'),cw=document.getElementById('cw');
+  var fmt=function(n){return Math.round(n).toLocaleString('ru-RU')};
+  var upd=function(){
+    var o=ct.options[ct.selectedIndex],p=parseFloat(o.getAttribute('data-p')),u=o.getAttribute('data-u');
+    var q=parseFloat(String(cq.value).replace(',','.'));
+    if(!(q>0)||q>1000){ce.textContent='Введите число от 1 до 1000';cr.textContent='—';cw.removeAttribute('href');return}
+    ce.textContent='';
+    var s=q*p;
+    cr.textContent='от '+fmt(s)+' ₸';
+    document.getElementById('cd').textContent=o.value+': '+q+' '+u+' × '+fmt(p)+' ₸';
+    cw.setAttribute('href',wa('Здравствуйте! Предварительный расчёт: '+o.value+', '+q+' '+u+', примерно от '+fmt(s)+' ₸. Хочу уточнить стоимость и сроки.'));
+    cw.setAttribute('target','_blank');cw.setAttribute('rel','noopener noreferrer');
+  };
+  ct.addEventListener('change',upd);cq.addEventListener('input',upd);upd();
+}
+})();
+</script>
+<script>
+(function(){
+var T={"Демонстрационный сайт. Название, адрес, телефон, цены и имена вымышлены, любое совпадение случайно.": "Демонстрациялық сайт. Атауы, мекенжайы, телефоны, бағалары мен аттары ойдан шығарылған, кез келген сәйкестік кездейсоқ.", "Невролог Мадина К.": "Невролог Мәдина К.", "Частный приём · Шымкент": "Жеке қабылдау · Шымкент", "Приём": "Қабылдау", "О враче": "Дәрігер туралы", "Как проходит": "Қалай өтеді", "Вопросы": "Сұрақтар", "Контакты": "Байланыс", "Записаться": "Жазылу", "Врач-невролог, частный приём": "Невролог дәрігер, жеке қабылдау", "Спокойный приём без спешки и лишних назначений": "Асықпай, артық тағайындаусыз сабырлы қабылдау", "Подробно выслушаю, посмотрю ваши обследования и объясню понятным языком, что делать дальше. Приём по записи, очередей нет.": "Мұқият тыңдаймын, тексеру нәтижелеріңізді қарап, әрі қарай не істеу керегін түсінікті тілмен түсіндіремін. Қабылдау алдын ала жазылу бойынша, кезек жоқ.", "Записаться на приём": "Қабылдауға жазылу", "Услуги и цены": "Қызметтер мен бағалар", "Приём по записи": "Жазылу бойынша қабылдау", "Очно и онлайн": "Бетпе-бет және онлайн", "Пн–сб с 9:00 до 18:00": "Дс–сб 9:00-ден 18:00-ге дейін", "Приём и консультации": "Қабылдау және кеңес беру", "Стоимость указана ориентировочно, точную назовёт администратор при записи.": "Құны шамамен көрсетілген, нақтысын жазылу кезінде әкімші айтады.", "Первичная консультация": "Алғашқы кеңес", "Сбор жалоб и истории, осмотр, план обследования и рекомендаций.": "Шағымдар мен анамнезді жинау, қарап-тексеру, тексеру жоспары және ұсыныстар.", "60 мин": "60 мин", "от 12 000 ₸": "12 000 ₸-ден", "Повторный приём": "Қайта қабылдау", "Оценка динамики, коррекция плана и ответы на вопросы.": "Динамиканы бағалау, жоспарды түзету және сұрақтарға жауап.", "30 мин": "30 мин", "от 8 000 ₸": "8 000 ₸-ден", "Разбор результатов обследований": "Тексеру нәтижелерін талдау", "МРТ, анализы, заключения других врачей: разберём и объясним.": "МРТ, талдаулар, басқа дәрігерлердің қорытындылары: қарап, түсіндіріп беремін.", "Онлайн-консультация": "Онлайн-кеңес", "Видеосвязь для тех, кто не может приехать. Нужны фото документов.": "Келе алмайтындарға бейнебайланыс. Құжаттардың фотосы қажет.", "40 мин": "40 мин", "от 9 000 ₸": "9 000 ₸-ден", "Мадина К. — врач-невролог с опытом работы в стационаре и поликлинике. Принимает взрослых пациентов в частном кабинете.": "Мәдина К. — стационар мен емханада жұмыс тәжірибесі бар невролог дәрігер. Жеке кабинетте ересек пациенттерді қабылдайды.", "(На сайте указаны вымышленные данные: в реальном проекте здесь будут ваш стаж, образование, сертификаты и области практики.)": "(Сайтта ойдан шығарылған деректер көрсетілген: нақты жобада мұнда сіздің өтіліңіз, біліміңіз, сертификаттарыңыз және практика салалары болады.)", "Образование и сертификаты: подтверждаются документами": "Білімі мен сертификаттары: құжаттармен расталады", "Стаж работы: указывается врачом": "Жұмыс өтілі: дәрігер көрсетеді", "Повышение квалификации и участие в конференциях": "Біліктілікті арттыру және конференцияларға қатысу", "Информация на сайте не заменяет консультацию специалиста. Имеются противопоказания, необходима консультация врача.": "Сайттағы ақпарат маманның кеңесін алмастырмайды. Қарсы көрсетілімдер бар, дәрігер кеңесі қажет.", "Как всё проходит": "Бәрі қалай өтеді", "Всё занимает немного времени, и вы заранее знаете, чего ожидать.": "Бәрі көп уақыт алмайды, және сіз не болатынын алдын ала білесіз.", "Запись": "Жазылу", "Выберите время и напишите в WhatsApp. Администратор подтвердит приём.": "Уақытты таңдап, WhatsApp-қа жазыңыз. Әкімші қабылдауды растайды.", "Приходите с обследованиями и списком лекарств, если они есть. Вам всё объяснят.": "Тексеру нәтижелерімен және дәрі тізімімен келіңіз, егер бар болса. Сізге бәрін түсіндіреді.", "После приёма": "Қабылдаудан кейін", "Получите рекомендации в письменном виде и сможете задать вопросы в чате.": "Ұсыныстарды жазбаша аласыз және чатта сұрақ қоя аласыз.", "Выберите услугу и удобное время. Откроется WhatsApp с готовым сообщением, администратор подтвердит запись.": "Қызметті және ыңғайлы уақытты таңдаңыз. WhatsApp дайын хабарламамен ашылады, әкімші жазылуды растайды.", "Ваше имя": "Атыңыз", "Услуга": "Қызмет", "Удобный день и время": "Ыңғайлы күн және уақыт", "Телефон (по желанию)": "Телефон (қалауыңыз бойынша)", "Отправить в WhatsApp": "WhatsApp-қа жіберу", "Частые вопросы": "Жиі қойылатын сұрақтар", "Что взять с собой на приём?": "Қабылдауға не алып келу керек?", "Документ, результаты прошлых обследований и анализов, список принимаемых лекарств.": "Құжат, бұрынғы тексеру мен талдау нәтижелері, қабылданатын дәрілер тізімі.", "Можно ли прийти без записи?": "Жазылмай келуге бола ма?", "Приём идёт по предварительной записи, чтобы вам не пришлось ждать.": "Қабылдау алдын ала жазылу бойынша өтеді, сонда сізге күтудің қажеті жоқ.", "Как отменить или перенести приём?": "Қабылдауды қалай бас тартуға немесе ауыстыруға болады?", "Напишите в WhatsApp не позднее чем за 3 часа до времени приёма.": "Қабылдау уақытына дейін кемінде 3 сағат бұрын WhatsApp-қа жазыңыз.", "Работаете ли с детьми?": "Балалармен жұмыс істейсіз бе?", "В этом демо принимаются только взрослые пациенты. В вашем проекте это можно поменять.": "Бұл демода тек ересек пациенттер қабылданады. Сіздің жобаңызда мұны өзгертуге болады.", "Адрес": "Мекенжай", "Шымкент, ул. Образцовая, 12, кабинет 4 (вымышленный адрес)": "Шымкент, Үлгілі к-сі, 12, 4-кабинет (ойдан шығарылған мекенжай)", "Пн–сб, 9:00–18:00. Воскресенье — выходной.": "Дс–сб, 9:00–18:00. Жексенбі — демалыс.", "Связь": "Байланыс", "Телефон и WhatsApp. Номер вымышленный.": "Телефон және WhatsApp. Нөмір ойдан шығарылған.", "Написать в WhatsApp": "WhatsApp-қа жазу", "Лицензия на медицинскую деятельность: № [указывает клиника]. БИН: [указывает клиника].": "Медициналық қызметке лицензия: № [клиника көрсетеді]. БСН: [клиника көрсетеді].", "Имеются противопоказания. Необходима консультация специалиста.": "Қарсы көрсетілімдер бар. Маманның кеңесі қажет.", "Демонстрационный проект. Сайт сделан как пример работы и не является сайтом реальной организации.": "Демонстрациялық жоба. Сайт жұмыс үлгісі ретінде жасалған және нақты ұйымның сайты емес."},PH={"Например, Айгерим": "Мысалы, Айгерім", "Например, завтра после 17:00": "Мысалы, ертең 17:00-ден кейін"},WAK=["Сәлеметсіз бе! Жазылғым келеді.", "Сәлеметсіз бе! Ақпаратты нақтылағым келеді."],WAR=["Здравствуйте! Хочу записаться.", "Здравствуйте! Хочу уточнить информацию."],WA='70000000000';
+var nodes=[];var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+while(w.nextNode()){var n=w.currentNode,t=n.nodeValue.trim();if(t&&Object.prototype.hasOwnProperty.call(T,t)&&!n.parentNode.closest('#langsw'))nodes.push({n:n,ru:n.nodeValue,kk:n.nodeValue.replace(t,T[t])});}
+var phs=[];document.querySelectorAll('[placeholder]').forEach(function(e){var p=e.getAttribute('placeholder');if(PH[p])phs.push({e:e,ru:p,kk:PH[p]});});
+var title=document.title,md=document.querySelector('meta[name=description]');
+var mdRu=md?md.content:'',mdKk='Жеке невролог дәрігердің демонстрациялық сайты: қызметтер, WhatsApp арқылы жазылу.';
+function set(l){var kk=l==='kk';window.__kk=kk;
+nodes.forEach(function(o){o.n.nodeValue=kk?o.kk:o.ru});
+phs.forEach(function(o){o.e.setAttribute('placeholder',kk?o.kk:o.ru)});
+document.querySelectorAll('[data-wa]').forEach(function(a){var i=WAR.indexOf(a.getAttribute('data-wa-ru')||a.getAttribute('data-wa'));if(!a.getAttribute('data-wa-ru'))a.setAttribute('data-wa-ru',a.getAttribute('data-wa'));var ru=a.getAttribute('data-wa-ru');i=WAR.indexOf(ru);a.setAttribute('href','https://wa.me/'+WA+'?text='+encodeURIComponent(kk&&i>=0?WAK[i]:ru));});
+document.documentElement.lang=kk?'kk':'ru';document.title=kk?T[title]||title:title;if(md)md.content=kk?mdKk:mdRu;
+document.querySelectorAll('#langsw button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l===l?'true':'false')});
+try{localStorage.setItem('lang',l)}catch(e){}}
+document.querySelectorAll('#langsw button').forEach(function(b){b.addEventListener('click',function(){set(b.dataset.l)})});
+var l='ru';try{var q=new URLSearchParams(location.search).get('lang');l=q||localStorage.getItem('lang')||'ru'}catch(e){}
+if(l==='kk')set('kk');
 })();
 </script>
 </body>

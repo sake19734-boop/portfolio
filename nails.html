@@ -93,6 +93,9 @@ section.blk>.wrap>h2{font-size:clamp(1.6rem,4.6vw,2.3rem);margin-bottom:26px;tex
 @media(min-width:700px){.book{grid-template-columns:1fr 1fr;padding:32px}.book .full{grid-column:1/-1}}
 label{display:grid;gap:6px;font-weight:700;font-size:.92rem}
 input,select,textarea{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line2);border-radius:var(--r);min-height:48px;padding:10px 14px;width:100%}
+.res{display:grid;gap:10px;align-items:center;background:var(--bg);border:1px dashed var(--line2);border-radius:var(--r);padding:16px}
+.res .sum{font-family:var(--fh);font-size:1.5rem;font-weight:var(--fhw)}
+.res small{color:var(--muted)}
 .err{color:var(--err);font-size:.88rem;min-height:1.2em;margin:0}
 details{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:0 20px;margin-bottom:10px}
 summary{cursor:pointer;font-weight:700;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
@@ -131,6 +134,7 @@ footer p{margin:0 0 8px}
   <h2>Услуги и цены</h2><p class="sub">Цены ориентировочные. Сложный дизайн и длина считаются отдельно.</p>
   <div class="grid"><article class="card"><h3>Маникюр классический</h3><p>Обработка кутикулы и придание формы, без покрытия.</p><div class="meta"><span>60 мин</span><span>от 5 000 ₸</span></div></article><article class="card"><h3>Маникюр + гель-лак</h3><p>Классический маникюр и стойкое покрытие.</p><div class="meta"><span>90 мин</span><span>от 8 000 ₸</span></div></article><article class="card"><h3>Педикюр + покрытие</h3><p>Аппаратный педикюр с покрытием на выбор.</p><div class="meta"><span>100 мин</span><span>от 10 000 ₸</span></div></article><article class="card"><h3>Снятие + маникюр</h3><p>Снятие старого покрытия и обновление.</p><div class="meta"><span>80 мин</span><span>от 6 500 ₸</span></div></article><article class="card"><h3>Дизайн ногтей</h3><p>Френч, стразы, рисунки. Цена за один ноготь.</p><div class="meta"><span>10 мин</span><span>от 300 ₸</span></div></article><article class="card"><h3>Наращивание</h3><p>Коррекция формы и длины, покрытие в стоимость.</p><div class="meta"><span>150 мин</span><span>от 13 000 ₸</span></div></article></div>
 </div></section>
+
 
 <section class="blk" id="about"><div class="wrap">
   <h2>О мастере</h2>  <div class="about">
@@ -184,6 +188,23 @@ f.addEventListener('submit',function(e){
   var t='Здравствуйте! Меня зовут '+n+'. Хочу записаться: '+s+'.'+(d?' Удобное время: '+d+'.':'')+(p?' Мой телефон: '+p+'.':'');
   window.open(wa(t),'_blank','noopener');
 });
+var ct=document.getElementById('ct');
+if(ct){
+  var cq=document.getElementById('cq'),cr=document.getElementById('cr'),ce=document.getElementById('ce'),cw=document.getElementById('cw');
+  var fmt=function(n){return Math.round(n).toLocaleString('ru-RU')};
+  var upd=function(){
+    var o=ct.options[ct.selectedIndex],p=parseFloat(o.getAttribute('data-p')),u=o.getAttribute('data-u');
+    var q=parseFloat(String(cq.value).replace(',','.'));
+    if(!(q>0)||q>1000){ce.textContent='Введите число от 1 до 1000';cr.textContent='—';cw.removeAttribute('href');return}
+    ce.textContent='';
+    var s=q*p;
+    cr.textContent='от '+fmt(s)+' ₸';
+    document.getElementById('cd').textContent=o.value+': '+q+' '+u+' × '+fmt(p)+' ₸';
+    cw.setAttribute('href',wa('Здравствуйте! Предварительный расчёт: '+o.value+', '+q+' '+u+', примерно от '+fmt(s)+' ₸. Хочу уточнить стоимость и сроки.'));
+    cw.setAttribute('target','_blank');cw.setAttribute('rel','noopener noreferrer');
+  };
+  ct.addEventListener('change',upd);cq.addEventListener('input',upd);upd();
+}
 })();
 </script>
 </body>

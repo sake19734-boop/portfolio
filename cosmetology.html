@@ -92,6 +92,9 @@ section.blk>.wrap>h2{font-size:clamp(1.6rem,4.6vw,2.3rem);margin-bottom:26px;tex
 @media(min-width:700px){.book{grid-template-columns:1fr 1fr;padding:32px}.book .full{grid-column:1/-1}}
 label{display:grid;gap:6px;font-weight:700;font-size:.92rem}
 input,select,textarea{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line2);border-radius:var(--r);min-height:48px;padding:10px 14px;width:100%}
+.res{display:grid;gap:10px;align-items:center;background:var(--bg);border:1px dashed var(--line2);border-radius:var(--r);padding:16px}
+.res .sum{font-family:var(--fh);font-size:1.5rem;font-weight:var(--fhw)}
+.res small{color:var(--muted)}
 .err{color:var(--err);font-size:.88rem;min-height:1.2em;margin:0}
 details{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:0 20px;margin-bottom:10px}
 summary{cursor:pointer;font-weight:700;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
@@ -130,6 +133,7 @@ footer p{margin:0 0 8px}
   <h2>Процедуры и цены</h2><p class="sub">Цены ориентировочные. Перечень процедур подбирается после консультации.</p>
   <div class="grid"><article class="card"><h3>Консультация косметолога</h3><p>Осмотр кожи, обсуждение пожеланий, план ухода.</p><div class="meta"><span>30 мин</span><span>от 6 000 ₸</span></div></article><article class="card"><h3>Чистка лица</h3><p>Очищение, пилинг, маска и успокаивающий уход.</p><div class="meta"><span>60 мин</span><span>от 14 000 ₸</span></div></article><article class="card"><h3>Пилинг</h3><p>Подбор состава под тип кожи. Нужна предварительная консультация.</p><div class="meta"><span>45 мин</span><span>от 12 000 ₸</span></div></article><article class="card"><h3>Уходовая процедура с маской</h3><p>Увлажнение и мягкий уход, подходит для регулярных визитов.</p><div class="meta"><span>50 мин</span><span>от 10 000 ₸</span></div></article><article class="card"><h3>Массаж лица</h3><p>Расслабляющий массаж с подходящими средствами.</p><div class="meta"><span>40 мин</span><span>от 8 000 ₸</span></div></article></div>
 </div></section>
+
 
 <section class="blk" id="about"><div class="wrap">
   <h2>О мастере</h2>  <div class="about">
@@ -183,6 +187,23 @@ f.addEventListener('submit',function(e){
   var t='Здравствуйте! Меня зовут '+n+'. Хочу записаться: '+s+'.'+(d?' Удобное время: '+d+'.':'')+(p?' Мой телефон: '+p+'.':'');
   window.open(wa(t),'_blank','noopener');
 });
+var ct=document.getElementById('ct');
+if(ct){
+  var cq=document.getElementById('cq'),cr=document.getElementById('cr'),ce=document.getElementById('ce'),cw=document.getElementById('cw');
+  var fmt=function(n){return Math.round(n).toLocaleString('ru-RU')};
+  var upd=function(){
+    var o=ct.options[ct.selectedIndex],p=parseFloat(o.getAttribute('data-p')),u=o.getAttribute('data-u');
+    var q=parseFloat(String(cq.value).replace(',','.'));
+    if(!(q>0)||q>1000){ce.textContent='Введите число от 1 до 1000';cr.textContent='—';cw.removeAttribute('href');return}
+    ce.textContent='';
+    var s=q*p;
+    cr.textContent='от '+fmt(s)+' ₸';
+    document.getElementById('cd').textContent=o.value+': '+q+' '+u+' × '+fmt(p)+' ₸';
+    cw.setAttribute('href',wa('Здравствуйте! Предварительный расчёт: '+o.value+', '+q+' '+u+', примерно от '+fmt(s)+' ₸. Хочу уточнить стоимость и сроки.'));
+    cw.setAttribute('target','_blank');cw.setAttribute('rel','noopener noreferrer');
+  };
+  ct.addEventListener('change',upd);cq.addEventListener('input',upd);upd();
+}
 })();
 </script>
 </body>
